@@ -1,6 +1,6 @@
 # Distributed Regularized Deep Matrix Factorization
 
-This repository is public and intended to share the **Python experiment code** used for a research paper on stability in distributed deep matrix factorization (DMF).
+This repository is public and intended to share the **Python experiment code** used for the research paper "On the Stability of Consensus Gradient Dynamics for Regularized Distributed Deep Matrix Factorization: Exact Expressions".
 
 ## Paper overview
 
