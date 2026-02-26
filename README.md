@@ -1,110 +1,84 @@
 # Distributed Regularized Deep Matrix Factorization
 
-This repository contains research code for **distributed deep matrix factorization (DMF)** with:
+This repository is public and intended to share the **Python experiment code** used for a research paper on stability in distributed deep matrix factorization (DMF).
 
-- multiple agents/nodes,
-- consensus averaging over a communication graph (Metropolis-Hastings weights), and
-- per-node \(\ell_2\) regularization.
+## Paper abstract
 
-The scripts generate synthetic data, run consensus-based optimization, and produce plots for reconstruction and consensus behavior.
+> **Abstract—**The stability of consensus-based gradient methods
+> remains a challenging yet crucial interrogative in dynamical
+> systems and learning theory, particularly for non-convex opti-
+> mization problems. Deep matrix factorization (DMF) concerns
+> the decomposition of a matrix as the product of multiple latent
+> factors, and serves as a canonical problem for such analyses
+> in centralized settings, with main applications in computer
+> vision. However, the distributed DMF problem has remained
+> unaddressed. In this letter, we extend DMF to a consensus-based
+> framework with weight decay regularization. We derive optimal
+> and analytically tractable learning rate expressions that ensure
+> the stability of consensus gradient dynamics. These depend on the
+> largest eigenvalue of the Hessian of the regularized loss and on
+> the graph topology, ensuring stability of the iterates. Moreover,
+> we corroborate our stability claims through numerical examples.
 
-## Repository structure
+## What this code is about (short)
 
-- `main_dmf.py`  
-  Main experiment script. Builds synthetic problem instances, computes step sizes from Hessian-based sharpness bounds, runs distributed optimization, and saves plots.
-- `dmf_consensus_w_2reg_.py`  
-  Core algorithm implementation: node-wise losses/gradients, consensus + gradient updates, and Hessian-eigenvalue tracking via Hessian-vector products.
-- `helper_functions_dmf.py`  
-  Utility functions for data generation, graph weights, parameter stacking/unstacking, and consensus metrics.
-- `main_graph_tests.py`  
-  Experiment that varies graph connection probability and compares optimization/consensus behavior.
-- `stability_metric.py`  
-  Work-in-progress script for stability/spectral-radius analysis.
+The `.py` files in this repository generate synthetic distributed DMF problems and run consensus-based gradient dynamics with regularization, mainly to:
 
-## Requirements
+- test learning-rate stability conditions,
+- evaluate reconstruction and consensus behavior, and
+- reproduce numerical experiments/plots for the paper.
 
-- Python **3.9+** (tested with standard CPython workflow)
-- pip
+## Files
 
-Python dependencies are listed in `requirements.txt`.
+- `main_dmf.py`: main experiment script and plot generation.
+- `main_graph_tests.py`: experiments that vary graph connectivity.
+- `dmf_consensus_w_2reg_.py`: consensus + gradient algorithm implementation.
+- `helper_functions_dmf.py`: data generation and utility functions.
+- `stability_metric.py`: additional/experimental stability-analysis code.
 
-## Installation (step-by-step)
+## Installation
 
-1. Clone the repository:
+1. Clone and enter the repository:
 
    ```bash
    git clone <YOUR_REPO_URL>
    cd Distributed-Regularized-Deep-Matrix-Factorization
    ```
 
-2. (Recommended) Create and activate a virtual environment:
+2. Create and activate a virtual environment (recommended):
 
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate
    ```
 
-3. Install dependencies:
+3. Install required dependencies:
 
    ```bash
    pip install --upgrade pip
    pip install -r requirements.txt
    ```
 
-4. Create output folder for figures (some scripts save into this path):
+4. Create plot output folder:
 
    ```bash
    mkdir -p saved_plots
    ```
 
-## Running the code
-
-### Main experiment
+## Run
 
 ```bash
 python main_dmf.py
 ```
 
-Expected outputs:
-- terminal logs of optimization iterations,
-- figures saved in `saved_plots/` such as:
-  - `sharpness_plot.png`
-  - `normalized_errors.png`
-  - `consensus_errors.png`
-
-### Graph connectivity experiment
+Optional:
 
 ```bash
 python main_graph_tests.py
-```
-
-### Stability script (experimental)
-
-```bash
 python stability_metric.py
 ```
 
-## Notes and troubleshooting
+## Notes
 
-1. **Matplotlib backend (`TkAgg`)** is hard-coded in scripts. If your machine does not have Tk installed (common in headless servers), change:
-
-   ```python
-   matplotlib.use("TkAgg")
-   ```
-
-   to:
-
-   ```python
-   matplotlib.use("Agg")
-   ```
-
-2. **LaTeX rendering is enabled** (`text.usetex = True`). For publication-quality labels this is useful, but it requires a local LaTeX installation.  
-   If LaTeX is missing, set `text.usetex` to `False` in the script you run.
-
-3. Scripts are currently designed around synthetic-data experiments and fixed hyperparameters defined near the top of each script.
-
-## Reproducibility tips
-
-- Keep `numpy` random seeds fixed where provided (`np.random.RandomState(0)` is used for graph generation in some scripts).
-- Start with smaller dimensions (`d`, `L`, `n_agents`) for faster local verification.
-- Save your modified parameters in separate script copies or configuration wrappers to keep experiments traceable.
+- Dependencies are listed in `requirements.txt`.
+- Some scripts use `matplotlib.use("TkAgg")` and LaTeX plotting options; on headless systems you may need to switch backend to `Agg` and disable `text.usetex`.
