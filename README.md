@@ -2,23 +2,16 @@
 
 This repository is public and intended to share the **Python experiment code** used for a research paper on stability in distributed deep matrix factorization (DMF).
 
-## Paper abstract
+## Paper overview
 
-> **Abstract—**The stability of consensus-based gradient methods
-> remains a challenging yet crucial interrogative in dynamical
-> systems and learning theory, particularly for non-convex opti-
-> mization problems. Deep matrix factorization (DMF) concerns
-> the decomposition of a matrix as the product of multiple latent
-> factors, and serves as a canonical problem for such analyses
-> in centralized settings, with main applications in computer
-> vision. However, the distributed DMF problem has remained
-> unaddressed. In this letter, we extend DMF to a consensus-based
-> framework with weight decay regularization. We derive optimal
-> and analytically tractable learning rate expressions that ensure
-> the stability of consensus gradient dynamics. These depend on the
-> largest eigenvalue of the Hessian of the regularized loss and on
-> the graph topology, ensuring stability of the iterates. Moreover,
-> we corroborate our stability claims through numerical examples.
+This code supports a paper that studies the stability of **consensus-based gradient methods** for a non-convex distributed learning problem: deep matrix factorization (DMF).
+
+In short, the paper extends classical (centralized) DMF analysis to a **distributed multi-agent setting** with consensus updates and weight-decay regularization. Its main contribution is a set of **tractable learning-rate conditions** for stable dynamics. These conditions depend on:
+
+- the largest eigenvalue of the Hessian of the regularized loss, and
+- the communication graph topology across agents.
+
+The experiments in this repository are intended to numerically illustrate and validate those stability claims.
 
 ## What this code is about (short)
 
